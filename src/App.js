@@ -5,7 +5,7 @@ import SignUp from "./pages/singup";
 import "./index.css";
 function App() {
   return (
-    <div className="App">
+    <div className="App w-[1200px] m-auto">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
