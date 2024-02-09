@@ -20,7 +20,9 @@ function Header() {
       <div>
         <span
           className="btn btn-ghost text-xl"
-          onClick={() => navigate("/login")}
+          onClick={() => {
+            navigate("/login");
+          }}
         >
           로그인
         </span>
