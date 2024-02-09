@@ -5,11 +5,12 @@ import SignUp from "./pages/singup";
 import "./index.css";
 function App() {
   return (
-    <div className="App w-[1200px] m-auto">
+    <div className="App w-[1200px] m-auto relative">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home />}>
+            <Route path="login" element={<Login />} />
+          </Route>
           <Route path="/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
