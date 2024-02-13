@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import SignUp from "./pages/signup";
+import PostDetail from "./pages/postdetail/Postdetail";
+
 import "./index.css";
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
             <Route path="login" element={<Login />} />
           </Route>
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/post/:postId" element={<PostDetail />} />
         </Routes>
       </BrowserRouter>
     </div>
