@@ -12,7 +12,7 @@ function Header() {
       <div>
         <span
           className="btn btn-ghost text-xl"
-          onClick={() => navigate("/register")}
+          onClick={() => navigate("/write")}
         >
           새 글쓰기
         </span>
