@@ -32,6 +32,7 @@ function Post() {
               placeHolder={"팀플/스터디/공모전"}
               register={register}
               htmlFor={"type"}
+              setValue={setValue}
             />
             <Select
               className="input border-2 border-red-300 w-96 mb-3"
@@ -40,6 +41,7 @@ function Post() {
               placeHolder={"인원수"}
               register={register}
               htmlFor={"number"}
+              setValue={setValue}
             />
           </div>
           <div className="flex">
@@ -47,6 +49,8 @@ function Post() {
               label={"카테고리"}
               register={register}
               htmlFor={"category"}
+              watch={watch}
+              setValue={setValue}
             />
             <div className="ml-12">
               <DateInput
@@ -66,6 +70,7 @@ function Post() {
               placeHolder={"연락방법"}
               register={register}
               htmlFor={"contact"}
+              setValue={setValue}
             />
             <Input
               className="input border-2 border-red-300 w-96 mb-3"
@@ -84,7 +89,9 @@ function Post() {
             register={register}
             htmlFor={"title"}
           />
-          <button>제출</button>
+          <button className="border-2 bg-black text-white w-24 rounded-lg p-3 float-right hover:bg-slate-400 ">
+            글 등록
+          </button>
         </form>
       </div>
     </>

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+
 import Input from "./Input";
 const category = [
   "알고리즘",
@@ -9,26 +9,15 @@ const category = [
   "디자인",
 ];
 
-function MultipleSelect({ label, register, htmlFor }) {
-  const { control } = useForm({
-    defaultValues: {
-      category: [], // 초기값으로 빈 배열 전달
-    },
-  });
-  const [value, setValue] = useState([]);
+function MultipleSelect({ label, register, htmlFor, setValue, watch }) {
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray(
-    {
-      control,
-      name: "category", // unique name for your Field Array
-    }
-  );
+  const categoryValue = watch("category");
   const handleDelete = (v) => {
-    let array = [...value];
-    let index = value.indexOf(v);
+    let array = [...categoryValue];
+    let index = categoryValue.indexOf(v);
     array.splice(index, 1);
-    setValue([...array]);
+    setValue("category", [...array]);
   };
 
   useEffect(() => {
@@ -42,21 +31,18 @@ function MultipleSelect({ label, register, htmlFor }) {
 
   return (
     <div className="relative flex flex-col" ref={ref}>
-      {fields.map((field, index) => (
-        <Input
-          label={label}
-          hidden
-          register={register}
-          htmlFor={htmlFor}
-          value={value.join(",")}
-          key={field.id}
-        ></Input>
-      ))}
+      <Input
+        label={label}
+        hidden
+        register={register}
+        htmlFor={htmlFor}
+        value={categoryValue}
+      />
       <div
         className="w-96  rounded-lg min-h-12 cursor-pointer flex flex-wrap  border-2 border-red-300  mb-3"
         onClick={() => setHidden(!hidden)}
       >
-        {value.map((v) => (
+        {categoryValue.map((v) => (
           <div className="flex border-2 m-1 items-center box-border p-1">
             <div className="text-sm mr-2">{v}</div>
             <button
@@ -73,17 +59,18 @@ function MultipleSelect({ label, register, htmlFor }) {
         ))}
       </div>
       {!hidden && (
-        <div className="absolute z-30 bg-white border-2 w-96 rounded-lg bottom-[-155px]">
+        <div className="absolute z-30 bg-white border-2 w-96 rounded-lg bottom-[-133px]">
           {category.map((cate) => (
             <div
+              key={cate}
               onClick={(e) => {
-                let array = [...value];
+                let array = [...categoryValue];
                 if (array.includes(e.target.textContent)) return;
                 array.push(e.target.textContent);
-                setValue([...array]);
+                setValue("category", [...array]);
                 setHidden(!hidden);
               }}
-              className="p-1 hover:bg-slate-200"
+              className="p-1 hover:bg-blue-600 text-sm"
             >
               {cate}
             </div>

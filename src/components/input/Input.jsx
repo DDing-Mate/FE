@@ -17,7 +17,6 @@ function Input({
         id={htmlFor}
         type={type}
         placeholder={placeholder}
-        className="input input-bordered w-full max-w-lg"
         {...register(htmlFor)}
         {...rest}
       />

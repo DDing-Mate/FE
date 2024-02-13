@@ -1,8 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import Input from "./Input";
-function Select({ label, placeHolder, options, register, htmlFor, ...rest }) {
+function Select({
+  label,
+  placeHolder,
+  options,
+  register,
+  htmlFor,
+  setValue,
+  ...rest
+}) {
   const [hidden, setHidden] = useState(true);
-  const [value, setValue] = useState("");
   const ref = useRef();
 
   useEffect(() => {
@@ -27,7 +34,7 @@ function Select({ label, placeHolder, options, register, htmlFor, ...rest }) {
               key={op}
               className="p-1 hover:bg-slate-200 text-base"
               onClick={() => {
-                setValue(op);
+                setValue(htmlFor, op);
                 setHidden(!hidden);
               }}
               value={op}
