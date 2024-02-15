@@ -3,8 +3,12 @@ import Postcard from "./Postcard";
 import { getPosts } from "../../../api";
 import { useQuery } from "@tanstack/react-query";
 function PostcardsContainer() {
-  const { data, error } = useQuery({ queryKey: ["posts"], queryFn: getPosts });
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
   console.log(data);
+  console.log(isLoading);
   return (
     <div className="flex flex-wrap -m-4">
       {data?.data.map((post) => (
