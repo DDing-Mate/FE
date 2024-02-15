@@ -15,6 +15,7 @@ function Postcard({ data }) {
     number,
     link,
   } = data || {};
+  console.log(data);
 
   const truncatedContent = truncate(content, 15);
 
