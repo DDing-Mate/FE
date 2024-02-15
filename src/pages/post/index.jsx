@@ -4,6 +4,7 @@ import Select from "../../components/input/Select";
 import MultipleSelect from "../../components/input/MultipleSelect";
 import DateInput from "../../components/input/DateInput";
 import { useForm } from "react-hook-form";
+import ReactQuill from "react-quill";
 function Post() {
   const { register, handleSubmit, control, watch, setValue } = useForm({
     defaultValues: {
@@ -14,6 +15,7 @@ function Post() {
       contact: "",
       link: "",
       title: "",
+      content: "",
     },
   });
   return (
@@ -62,7 +64,7 @@ function Post() {
               />
             </div>
           </div>
-          <div>
+          <div className="mb-10">
             <Select
               className="input border-2 border-red-300 w-96 mb-3"
               options={["오픈톡", "구글폼", "이메일"]}
@@ -89,7 +91,13 @@ function Post() {
             register={register}
             htmlFor={"title"}
           />
-          <button className="border-2 bg-black text-white w-24 rounded-lg p-3 float-right hover:bg-slate-400 ">
+          <ReactQuill
+            style={{ width: "100%", height: "400px" }}
+            onChange={(value) => {
+              setValue("content", value);
+            }}
+          ></ReactQuill>
+          <button className="my-20 border-2 bg-black text-white w-24 rounded-lg p-3 float-right hover:bg-slate-400 ">
             글 등록
           </button>
         </form>

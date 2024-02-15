@@ -43,7 +43,10 @@ function MultipleSelect({ label, register, htmlFor, setValue, watch }) {
         onClick={() => setHidden(!hidden)}
       >
         {categoryValue.map((v) => (
-          <div className="flex border-2 m-1 items-center box-border p-1">
+          <div
+            className="flex border-2 m-1 items-center box-border p-1"
+            key={v}
+          >
             <div className="text-sm mr-2">{v}</div>
             <button
               type="button"
