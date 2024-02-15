@@ -3,11 +3,11 @@ import Modal from "../../components/modal/Modal";
 import Input from "../../components/input/Input";
 import { useForm } from "react-hook-form";
 
-function Login() {
+function Login({ setVisible }) {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   return (
-    <Modal closeModal={() => navigate(-1)}>
+    <Modal closeModal={() => setVisible(false)}>
       <div className="modal-box w-[600px]">
         <h3 className="font-bold text-lg">로그인</h3>
         <div className="modal-action w-full float-left">

@@ -10,9 +10,7 @@ function App() {
     <div className="App w-[1200px] m-auto relative">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route path="login" element={<Login />} />
-          </Route>
+          <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/write" element={<Post />} />
           <Route path="/post/:postId" element={<PostDetail />} />
