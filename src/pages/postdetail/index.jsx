@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
+import Comments from "./comments";
 import contactIcon from "../../img/contact.png";
 
 function PostDetail() {
@@ -74,6 +75,7 @@ function PostDetail() {
             연락하기
           </a>
         </div>
+        <Comments />
       </div>
     </div>
   );
