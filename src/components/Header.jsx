@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Login from "../pages/login";
 
 function Header() {
@@ -22,14 +22,28 @@ function Header() {
           </span>
         </div>
         <div>
-          <span
+          {/* <span
             className="btn btn-ghost text-xl"
             onClick={() => {
               setVisible(true);
             }}
           >
             로그인
-          </span>
+          </span> */}
+          <details className="dropdown">
+            <summary className="btn text-xl">내 정보</summary>
+            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+              <li>
+                <Link to={"/zzim"}>찜한 글</Link>
+              </li>
+              <li>
+                <Link to={"/myProfile"}>내 정보</Link>
+              </li>
+              <li>
+                <a>로그아웃</a>
+              </li>
+            </ul>
+          </details>
         </div>
       </div>
       {visible && <Login setVisible={setVisible}></Login>}
