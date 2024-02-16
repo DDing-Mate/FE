@@ -58,7 +58,7 @@ function Post() {
               <DateInput
                 register={register}
                 htmlFor={"duedate"}
-                control={control}
+                label={"마감일"}
                 watch={watch}
                 setValue={setValue}
               />

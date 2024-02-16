@@ -4,18 +4,19 @@ import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-function DateInput({ htmlFor, control, register, watch, setValue }) {
-  const [value, onChange] = useState(new Date());
+function DateInput({ htmlFor, label, register, watch, setValue, control }) {
+  const date = watch(htmlFor);
+  const [value, onChange] = useState(date === "" ? new Date() : date);
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
-  const duedate = watch("duedate");
+  console.log(date);
 
   useEffect(() => {
     const handleOutsideClose = (e) => {
       if (!hidden && !ref.current.contains(e.target)) setHidden(true);
     };
     document.addEventListener("click", handleOutsideClose);
-    setValue("duedate", moment(value).format("yyyy-MM-DD"));
+    setValue(htmlFor, moment(value).format("yyyy-MM-DD"));
 
     return () => document.removeEventListener("click", handleOutsideClose);
   }, [hidden]);
@@ -23,7 +24,7 @@ function DateInput({ htmlFor, control, register, watch, setValue }) {
     <>
       <div className="relative" ref={ref}>
         <Input
-          label={"마감일"}
+          label={label}
           className="input border-2 border-red-300 w-96 mb-3"
           placeholder="yyyy-mm-dd"
           onClick={() => {
@@ -31,7 +32,7 @@ function DateInput({ htmlFor, control, register, watch, setValue }) {
           }}
           register={register}
           htmlFor={htmlFor}
-          value={duedate}
+          value={date}
         />
         {!hidden && (
           <Calendar
