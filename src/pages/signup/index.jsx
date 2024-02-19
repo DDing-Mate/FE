@@ -1,84 +1,87 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Input from "../../components/input/Input";
+import { toast } from "react-toastify";
+import SetProfile from "./components/SetProfile";
+import SetAccount from "./components/SetAccount";
+import { useMutation } from "@tanstack/react-query";
+import { postMember } from "../../api";
+
 function SignUp() {
   const navigate = useNavigate();
-  const [visibile, setVisibile] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, getValues, watch, setValue } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      passwordCheck: "",
+      name: "",
+      studentId: "",
+      major: "",
+      birth: "",
+      introduction: "",
+    },
+  });
+  const [accountSetup, setAccountSetup] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState(false);
+
+  const mutation = useMutation({
+    mutationFn: postMember,
+    mutationKey: ["signup"],
+  });
+
+  const submit = (data) => {
+    console.log(data);
+    console.log(typeof data.studentId);
+    mutation.mutate(data, {
+      onSuccess: () => navigate("/"),
+      onError: (err) => console.log(err),
+    });
+  };
+
+  const handleNextButton = () => {
+    if (!confirmEmail) toast.error("이메일 인증을 완료하세요!");
+    else if (getValues("password") !== getValues("passwordCheck"))
+      toast.error("패스워드가 일치하지 않습니다!");
+    else {
+      setAccountSetup(true);
+      setValue("email", getValues("email") + "@mju.ac.kr");
+    }
+  };
   return (
     <>
       <div className="flex flex-col items-center">
         <h1 className="text-2xl font-bold">회원가입</h1>
-        <form className="w-full flex flex-col items-center mt-5">
-          <div className="w-full max-w-sm relative">
-            <Input
-              className="input border-2 border-red-300 w-96 mb-3"
-              type="email"
-              label={"이메일"}
-              htmlFor={"email"}
-              register={register}
-            />
-            <button
-              type="button"
-              className="btn btn-sm ml-2 absolute top-9 right-[-60px]"
-              onClick={() => setVisibile(true)}
-              disabled={visibile}
-            >
-              인증
-            </button>
-          </div>
-
-          {visibile && (
-            <div className="w-full max-w-sm relative">
-              <Input
-                className="input border-2 border-red-300 w-96 mb-3"
-                label={"확인번호"}
-                htmlFor={"emailConfirm"}
+        <form
+          className="w-full flex flex-col items-center mt-5"
+          onSubmit={handleSubmit(submit)}
+        >
+          {!accountSetup ? (
+            <>
+              <SetAccount
                 register={register}
+                getValues={getValues}
+                setConfirmEmail={setConfirmEmail}
               />
               <button
                 type="button"
-                className="btn btn-sm ml-2 absolute top-9 right-[-60px]"
+                className="btn w-48 bg-black text-white"
+                onClick={handleNextButton}
               >
-                확인
+                다음
               </button>
-            </div>
+            </>
+          ) : (
+            <>
+              <SetProfile
+                register={register}
+                watch={watch}
+                setValue={setValue}
+              />
+              <button type="submit" className="btn w-48 bg-black text-white">
+                가입하기
+              </button>
+            </>
           )}
-          <Input
-            className="input border-2 border-red-300 w-96 mb-3"
-            type="password"
-            label={"패스워드"}
-            htmlFor={"password"}
-            register={register}
-          />
-          <Input
-            className="input border-2 border-red-300 w-96 mb-3"
-            type="password"
-            label={"패스워드 확인"}
-            htmlFor={"passwordConfirm"}
-            register={register}
-          />
-          <Input
-            className="input border-2 border-red-300 w-96 mb-3"
-            label={"닉네임"}
-            htmlFor={"name"}
-            register={register}
-          />
-          <Input
-            className="input border-2 border-red-300 w-96 mb-3"
-            type="text"
-            label={"학번"}
-            htmlFor={"studentId"}
-            register={register}
-          />
-          <Input
-            className="input border-2 border-red-300 w-96 mb-3"
-            label={"한줄 소개"}
-            htmlFor={"introduction"}
-            register={register}
-          />
-          <button className="btn btn-wide mt-10">가입하기</button>
         </form>
       </div>
     </>
