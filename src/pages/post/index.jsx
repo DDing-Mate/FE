@@ -32,35 +32,40 @@ function Post() {
               options={["팀플", "스터디", "공모전"]}
               label={"모집유형"}
               placeHolder={"팀플/스터디/공모전"}
-              register={register}
               htmlFor={"type"}
-              setValue={setValue}
+              {...register("type")}
             />
             <Select
               className="input border-2 border-red-300 w-96 mb-3"
               options={["1", "2", "3", "4", "5"]}
               label={"모집인원"}
               placeHolder={"인원수"}
-              register={register}
               htmlFor={"number"}
-              setValue={setValue}
+              {...register("number")}
             />
           </div>
           <div className="flex">
             <MultipleSelect
               label={"카테고리"}
-              register={register}
+              options={[
+                "알고리즘",
+                "코딩 테스트",
+                "프로그래밍 언어",
+                "프로젝트",
+                "디자인",
+              ]}
               htmlFor={"category"}
               watch={watch}
               setValue={setValue}
+              {...register("category")}
             />
             <div className="ml-12">
               <DateInput
-                register={register}
                 htmlFor={"duedate"}
                 control={control}
                 watch={watch}
                 setValue={setValue}
+                {...register("duedate")}
               />
             </div>
           </div>
@@ -70,15 +75,14 @@ function Post() {
               options={["오픈톡", "구글폼", "이메일"]}
               label={"연락방법"}
               placeHolder={"연락방법"}
-              register={register}
               htmlFor={"contact"}
-              setValue={setValue}
+              {...register("contact")}
             />
             <Input
               className="input border-2 border-red-300 w-96 mb-3"
               placeholder={"이메일/카카오톡 링크/ 구글 폼 "}
-              register={register}
               htmlFor={"link"}
+              {...register("link")}
             />
           </div>
           <h2 className="text-2xl font-bold mb-5 pb-1 border-b-2 border-red-300">
@@ -88,7 +92,7 @@ function Post() {
             label={"제목"}
             className="input border-2 border-red-300 w-[600px] mb-3"
             placeholder="글 제목을 입력해주세요"
-            register={register}
+            {...register("title")}
             htmlFor={"title"}
           />
           <ReactQuill
