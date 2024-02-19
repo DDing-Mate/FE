@@ -1,15 +1,11 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, forwardRef } from "react";
 
 import Input from "./Input";
-const category = [
-  "알고리즘",
-  "코딩 테스트",
-  "프로그래밍 언어",
-  "프로젝트",
-  "디자인",
-];
 
-function MultipleSelect({ label, register, htmlFor, setValue, watch }) {
+function MultipleSelect(
+  { label, options, htmlFor, setValue, watch },
+  forwardRef
+) {
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
   const categoryValue = watch("category");
@@ -33,10 +29,10 @@ function MultipleSelect({ label, register, htmlFor, setValue, watch }) {
     <div className="relative flex flex-col" ref={ref}>
       <Input
         label={label}
-        hidden
-        register={register}
         htmlFor={htmlFor}
         value={categoryValue}
+        ref={forwardRef}
+        hidden
       />
       <div
         className="w-96  rounded-lg min-h-12 cursor-pointer flex flex-wrap  border-2 border-red-300  mb-3"
@@ -63,7 +59,7 @@ function MultipleSelect({ label, register, htmlFor, setValue, watch }) {
       </div>
       {!hidden && (
         <div className="absolute z-30 bg-white border-2 w-96 rounded-lg bottom-[-133px]">
-          {category.map((cate) => (
+          {options.map((cate) => (
             <div
               key={cate}
               onClick={(e) => {
@@ -84,4 +80,4 @@ function MultipleSelect({ label, register, htmlFor, setValue, watch }) {
   );
 }
 
-export default MultipleSelect;
+export default forwardRef(MultipleSelect);

@@ -1,14 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, forwardRef } from "react";
 import Input from "./Input";
-function Select({
-  label,
-  placeHolder,
-  options,
-  register,
-  htmlFor,
-  setValue,
-  ...rest
-}) {
+function Select({ label, placeHolder, options, htmlFor, ...rest }, forwardRef) {
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
 
@@ -27,14 +19,14 @@ function Select({
         <select
           id={label}
           className="input border-red-300  mb-3 select z-10 bg-white border-2 w-96 rounded-lg mr-12"
-          {...register(htmlFor)}
+          ref={forwardRef}
+          {...rest}
         >
           {options.map((op) => (
             <option
               key={op}
               className="p-1 hover:bg-slate-200 text-base"
               onClick={() => {
-                setValue(htmlFor, op);
                 setHidden(!hidden);
               }}
               value={op}
@@ -48,4 +40,4 @@ function Select({
   );
 }
 
-export default Select;
+export default forwardRef(Select);
