@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/Header";
-import Comments from "./comments";
+import Comments from "./Comments";
 import contactIcon from "../../img/contact.png";
 
 function PostDetail() {
