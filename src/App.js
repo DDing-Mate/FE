@@ -5,6 +5,9 @@ import PostDetail from "./pages/postdetail/Postdetail";
 import Post from "./pages/post";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "./index.css";
+import { CookiesProvider } from "react-cookie";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -16,16 +19,19 @@ function App() {
   });
   return (
     <div className="App w-[1200px] m-auto relative">
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/write" element={<Post />} />
-            <Route path="/post/:postId" element={<PostDetail />} />
-          </Routes>
-        </BrowserRouter>
-      </QueryClientProvider>
+      <ToastContainer />
+      <CookiesProvider>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/write" element={<Post />} />
+              <Route path="/post/:postId" element={<PostDetail />} />
+            </Routes>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </CookiesProvider>
     </div>
   );
 }
