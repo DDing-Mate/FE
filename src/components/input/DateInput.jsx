@@ -1,21 +1,24 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, forwardRef } from "react";
 import Input from "./Input";
 import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-function DateInput({ htmlFor, control, register, watch, setValue }) {
-  const [value, onChange] = useState(new Date());
+function DateInput(
+  { htmlFor, register, watch, setValue, label, defaultDate = new Date() },
+  forwardRef
+) {
+  const date = watch(htmlFor);
+  const [value, onChange] = useState(defaultDate);
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
-  const duedate = watch("duedate");
 
   useEffect(() => {
     const handleOutsideClose = (e) => {
       if (!hidden && !ref.current.contains(e.target)) setHidden(true);
     };
     document.addEventListener("click", handleOutsideClose);
-    setValue("duedate", moment(value).format("yyyy-MM-DD"));
+    setValue(htmlFor, moment(value).format("yyyy-MM-DD"));
 
     return () => document.removeEventListener("click", handleOutsideClose);
   }, [hidden]);
@@ -23,15 +26,15 @@ function DateInput({ htmlFor, control, register, watch, setValue }) {
     <>
       <div className="relative" ref={ref}>
         <Input
-          label={"마감일"}
-          className="input border-2 border-red-300 w-96 mb-3"
+          label={label}
+          className="input input-bordered w-96 mb-3"
           placeholder="yyyy-mm-dd"
           onClick={() => {
             setHidden(!hidden);
           }}
-          register={register}
+          ref={forwardRef}
           htmlFor={htmlFor}
-          value={duedate}
+          value={date}
         />
         {!hidden && (
           <Calendar
@@ -44,7 +47,7 @@ function DateInput({ htmlFor, control, register, watch, setValue }) {
             }}
             next2Label={false}
             prev2Label={false}
-            minDate={new Date()}
+            minDate={htmlFor === "duedate" ? new Date() : null}
           />
         )}
       </div>
@@ -52,4 +55,4 @@ function DateInput({ htmlFor, control, register, watch, setValue }) {
   );
 }
 
-export default DateInput;
+export default forwardRef(DateInput);
