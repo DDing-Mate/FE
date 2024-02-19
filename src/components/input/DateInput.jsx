@@ -4,14 +4,6 @@ import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-<<<<<<< HEAD
-function DateInput({ htmlFor, label, register, watch, setValue, control }) {
-  const date = watch(htmlFor);
-  const [value, onChange] = useState(date === "" ? new Date() : date);
-  const [hidden, setHidden] = useState(true);
-  const ref = useRef();
-  console.log(date);
-=======
 function DateInput(
   { htmlFor, register, watch, setValue, label, defaultDate = new Date() },
   forwardRef
@@ -20,7 +12,6 @@ function DateInput(
   const [value, onChange] = useState(defaultDate);
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
->>>>>>> 4d60dd1abd1c7add6af401e50af08e3c32e0ce1c
 
   useEffect(() => {
     const handleOutsideClose = (e) => {
@@ -36,11 +27,7 @@ function DateInput(
       <div className="relative" ref={ref}>
         <Input
           label={label}
-<<<<<<< HEAD
-          className="input border-2 border-red-300 w-96 mb-3"
-=======
           className="input input-bordered w-96 mb-3"
->>>>>>> 4d60dd1abd1c7add6af401e50af08e3c32e0ce1c
           placeholder="yyyy-mm-dd"
           onClick={() => {
             setHidden(!hidden);

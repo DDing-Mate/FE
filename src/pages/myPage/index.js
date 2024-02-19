@@ -20,33 +20,33 @@ function MyPage() {
         <Input
           className="input border-2 border-red-300 w-96 mb-3"
           htmlFor={"name"}
-          register={register}
           label={"이름"}
+          {...register("name")}
         />
         <Input
           className="input border-2 border-red-300 w-96 mb-3"
           htmlFor={"studentId"}
-          register={register}
           label={"학번"}
+          {...register("studentId")}
         />
         <Input
           className="input border-2 border-red-300 w-96 mb-3"
           htmlFor={"major"}
-          register={register}
           label={"전공"}
+          {...register("major")}
         />
         <DateInput
-          register={register}
           htmlFor={"birth"}
           label={"생년월일"}
           watch={watch}
           setValue={setValue}
+          {...register("birth")}
         />
         <Input
           className="input border-2 border-red-300 w-96 mb-3"
           htmlFor={"introduction"}
-          register={register}
           label={"한줄 소개"}
+          {...register("introduction")}
         />
         <button className="bg-red-300 p-3 w-96 rounded-lg text-white mt-10 hover:bg-red-500">
           프로필 저장
