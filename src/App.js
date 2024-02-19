@@ -5,9 +5,11 @@ import PostDetail from "./pages/postdetail/Postdetail";
 import Post from "./pages/post";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "./index.css";
+import MyPage from "./pages/myPage";
 import { CookiesProvider } from "react-cookie";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {

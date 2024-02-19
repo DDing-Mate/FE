@@ -62,7 +62,7 @@ function Post() {
             <div className="ml-12">
               <DateInput
                 htmlFor={"duedate"}
-                control={control}
+                label={"마감일"}
                 watch={watch}
                 setValue={setValue}
                 {...register("duedate")}
