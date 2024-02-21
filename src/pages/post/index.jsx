@@ -28,7 +28,6 @@ function Post() {
     mutationKey: ["postPost"],
   });
   const submit = (data) => {
-    console.log(data);
     mutation.mutate(
       { data: data, token: cookies.token },
       {
