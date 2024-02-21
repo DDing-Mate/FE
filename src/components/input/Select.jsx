@@ -3,7 +3,7 @@ import Input from "./Input";
 function Select({ label, placeHolder, options, htmlFor, ...rest }, forwardRef) {
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
-
+  console.log(options);
   useEffect(() => {
     const handleOutsideClose = (e) => {
       if (!hidden && !ref.current.contains(e.target)) setHidden(true);

@@ -2,16 +2,23 @@ import Header from "../../components/Header";
 import Input from "../../components/input/Input";
 import { useForm } from "react-hook-form";
 import DateInput from "../../components/input/DateInput";
+import { useQuery } from "@tanstack/react-query";
+import { getMember } from "../../api";
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
 function MyPage() {
-  const { register, handleSubmit, control, watch, setValue } = useForm({
-    defaultValues: {
-      name: "정승연",
-      major: "응용소프트웨어",
-      studentId: "60201706",
-      birth: "2005-01-01",
-      introduction: "총대는 제가 메겠습니다",
-    },
+  const { register, handleSubmit, control, watch, setValue, reset } = useForm();
+  const [cookies] = useCookies();
+  const { data, isSuccess } = useQuery({
+    queryFn: () => getMember(cookies.token),
+    queryKey: ["member"],
   });
+
+  useEffect(() => {
+    if (isSuccess) reset(data?.data.data);
+    console.log(data?.data.data);
+  }, [data]);
+
   return (
     <>
       <Header />
@@ -27,7 +34,8 @@ function MyPage() {
           className="input border-2 border-red-300 w-96 mb-3"
           htmlFor={"studentId"}
           label={"학번"}
-          {...register("studentId")}
+          type="number"
+          {...register("studentId", { valueAsNumber: true })}
         />
         <Input
           className="input border-2 border-red-300 w-96 mb-3"
