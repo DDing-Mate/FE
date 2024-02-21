@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Login from "../pages/login";
 import { useCookies } from "react-cookie";
+import Modal from "./modal/Modal";
 function Header() {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -18,7 +19,10 @@ function Header() {
         <div>
           <span
             className="btn btn-ghost text-xl"
-            onClick={() => navigate("/write")}
+            onClick={() => {
+              if (!cookies.token) setVisible(true);
+              else navigate("/write");
+            }}
           >
             새 글쓰기
           </span>
@@ -51,7 +55,11 @@ function Header() {
           )}
         </div>
       </div>
-      {visible && <Login setVisible={setVisible}></Login>}
+      {visible && (
+        <Modal closeModal={() => setVisible(false)}>
+          <Login />
+        </Modal>
+      )}
     </>
   );
 }
