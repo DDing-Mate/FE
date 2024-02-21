@@ -43,7 +43,7 @@ export async function deleteMember({ data, token }) {
 export async function postPost({ data, token }) {
   return await api.post("api/post", data, {
     headers: {
-      Authorization: "Bearer" + token,
+      Authorization: "Bearer " + token,
     },
   });
 }
