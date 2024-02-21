@@ -9,7 +9,7 @@ function Postcard({ data }) {
     memberName,
     title,
     content,
-    category,
+    categories,
     type,
     dueDate,
     number,
@@ -51,7 +51,7 @@ function Postcard({ data }) {
       </Link>
       <div className="flex justify-between items-center p-3 space-x-4">
         <span className="text-blue-800 font-bold text-sm border border-blue-800 rounded-full px-3 py-1">
-          {category}
+          {categories}
         </span>
         <img
           src={contact}

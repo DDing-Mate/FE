@@ -8,7 +8,6 @@ function Home() {
     <div>
       <Header />
       <Banner />
-      <Outlet />
       <PostcardsContainer />
     </div>
   );
