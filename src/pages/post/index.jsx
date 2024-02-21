@@ -5,24 +5,48 @@ import MultipleSelect from "../../components/input/MultipleSelect";
 import DateInput from "../../components/input/DateInput";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
+import { useCookies } from "react-cookie";
+import { useMutation } from "@tanstack/react-query";
+import { postPost } from "../../api";
+import { useNavigate } from "react-router-dom";
 function Post() {
   const { register, handleSubmit, control, watch, setValue } = useForm({
     defaultValues: {
       type: "",
       number: "",
-      category: [],
-      duedate: "",
-      contact: "",
+      categories: [],
+      dueDate: "",
       link: "",
       title: "",
       content: "",
     },
   });
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: postPost,
+    mutationKey: ["postPost"],
+  });
+  const submit = (data) => {
+    console.log(data);
+    mutation.mutate(
+      { data: data, token: cookies.token },
+      {
+        onSuccess: (res) => {
+          console.log(res);
+          navigate("/");
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      }
+    );
+  };
   return (
     <>
       <Header />
       <div className="max-w-5xl m-auto pt-10">
-        <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <form onSubmit={handleSubmit(submit)}>
           <h1 className="text-2xl font-bold mb-5 pb-1 border-b-2 border-red-300">
             프로젝트의 기본 정보를 입력해주세요
           </h1>
@@ -41,31 +65,38 @@ function Post() {
               label={"모집인원"}
               placeHolder={"인원수"}
               htmlFor={"number"}
-              {...register("number")}
+              {...register("number", {
+                valueAsNumber: true,
+              })}
             />
           </div>
           <div className="flex">
             <MultipleSelect
               label={"카테고리"}
               options={[
-                "알고리즘",
-                "코딩 테스트",
-                "프로그래밍 언어",
-                "프로젝트",
-                "디자인",
+                "언어",
+                "역사",
+                "철학",
+                "문화",
+                "법",
+                "교육",
+                "경제",
+                "프로그래밍",
+                "과학",
+                "기계",
               ]}
               htmlFor={"category"}
               watch={watch}
               setValue={setValue}
-              {...register("category")}
+              {...register("categories")}
             />
             <div className="ml-12">
               <DateInput
-                htmlFor={"duedate"}
+                htmlFor={"dueDate"}
                 label={"마감일"}
                 watch={watch}
                 setValue={setValue}
-                {...register("duedate")}
+                {...register("dueDate")}
               />
             </div>
           </div>
@@ -76,7 +107,6 @@ function Post() {
               label={"연락방법"}
               placeHolder={"연락방법"}
               htmlFor={"contact"}
-              {...register("contact")}
             />
             <Input
               className="input border-2 border-red-300 w-96 mb-3"

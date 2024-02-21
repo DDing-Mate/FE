@@ -14,8 +14,8 @@ function Login({ setVisible }) {
     console.log(data);
     mutate(data, {
       onSuccess: (data) => {
-        console.log(data.data.data.token);
         setCookie("token", data.data.data.token);
+        window.location.reload();
       },
       onError: (err) => {
         if (err.response.status === 401)

@@ -19,6 +19,7 @@ function SignUp() {
       major: "",
       birth: "",
       introduction: "",
+      categories: [],
     },
   });
   const [accountSetup, setAccountSetup] = useState(false);
