@@ -47,7 +47,7 @@ function DateInput(
             }}
             next2Label={false}
             prev2Label={false}
-            minDate={htmlFor === "duedate" ? new Date() : null}
+            minDate={htmlFor === "dueDate" ? new Date() : null}
           />
         )}
       </div>

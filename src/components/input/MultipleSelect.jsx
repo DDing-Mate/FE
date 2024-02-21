@@ -8,12 +8,12 @@ function MultipleSelect(
 ) {
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
-  const categoryValue = watch("category");
+  const categoryValue = watch("categories");
   const handleDelete = (v) => {
     let array = [...categoryValue];
     let index = categoryValue.indexOf(v);
     array.splice(index, 1);
-    setValue("category", [...array]);
+    setValue("categories", [...array]);
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function MultipleSelect(
         ))}
       </div>
       {!hidden && (
-        <div className="absolute z-30 bg-white border-2 w-96 rounded-lg bottom-[-133px]">
+        <div className="absolute z-30 bg-white border-2 w-96 rounded-lg bottom-[-275px]">
           {options.map((cate) => (
             <div
               key={cate}
@@ -66,7 +66,7 @@ function MultipleSelect(
                 let array = [...categoryValue];
                 if (array.includes(e.target.textContent)) return;
                 array.push(e.target.textContent);
-                setValue("category", [...array]);
+                setValue("categories", [...array]);
                 setHidden(!hidden);
               }}
               className="p-1 hover:bg-blue-600 text-sm"
