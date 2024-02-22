@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Postcard from "./Postcard";
-import { getMajor, getPosts } from "../../../api";
+import { getMajor, getPosts, getTypePosts } from "../../../api";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-function PostcardsContainer() {
+
+function PostcardsContainer({ selectedType }) {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
+    queryKey: ["posts", selectedType],
+
+    queryFn:
+      selectedType === "all"
+        ? getPosts
+        : () => getTypePosts(encodeURIComponent(selectedType)),
   });
 
   console.log(data);
