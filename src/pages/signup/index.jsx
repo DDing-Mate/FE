@@ -58,10 +58,10 @@ function SignUp() {
         >
           {!accountSetup ? (
             <>
-              <SetProfile
+              <SetAccount
                 register={register}
-                watch={watch}
-                setValue={setValue}
+                getValues={getValues}
+                setConfirmEmail={setConfirmEmail}
               />
               <button
                 type="button"

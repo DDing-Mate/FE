@@ -87,14 +87,6 @@ function SetProfile({ register, watch, setValue }) {
         placeholder={"YYYYMMDD"}
         {...register("birth", { required: "생일을 입력해주세요" })}
       />
-      <Input
-        className="input input-bordered w-96 mb-3"
-        label={"한줄 소개"}
-        htmlFor={"introduction"}
-        {...register("introduction", {
-          required: "한줄 소개를 입력해주세요",
-        })}
-      />
       <MultipleSelect
         options={options}
         label={"카테고리"}
@@ -102,6 +94,14 @@ function SetProfile({ register, watch, setValue }) {
         setValue={setValue}
         watch={watch}
         {...register("categories")}
+      />
+      <Input
+        className="input input-bordered w-96 mb-3"
+        label={"한줄 소개"}
+        htmlFor={"introduction"}
+        {...register("introduction", {
+          required: "한줄 소개를 입력해주세요",
+        })}
       />
     </>
   );
