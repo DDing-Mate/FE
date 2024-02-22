@@ -59,8 +59,25 @@ export async function getPosts() {
   return await api.get("api/post/all");
 }
 
-export async function getPost(id) {
-  return await api.get(`api/post/${id}`);
+export async function getPost({ id, token }) {
+  return await api.get(`api/post/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+export async function patchPost({ id, token }) {
+  return await api.patch(`api/post/${id}`, {
+    Authorization: "Bearer " + token,
+  });
+}
+
+export async function deletePost({ id, token }) {
+  return await api.delete(`api/post/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 }
 
 export async function getTypePosts(type) {
@@ -80,7 +97,6 @@ export async function getComment(id) {
 }
 
 export async function getMajor({ major }) {
-  console.log(major);
   return await api.get(`/api/account/major?univ=${major}`);
 }
 
