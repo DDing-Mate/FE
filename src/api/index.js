@@ -57,7 +57,7 @@ export async function getPost(id) {
 }
 
 export async function getTypePosts(type) {
-  return await api.get(`api/post/type=${type}`);
+  return await api.get(`api/post/type/${type}`);
 }
 
 export async function getCategoryPosts(category) {
