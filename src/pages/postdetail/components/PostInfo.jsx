@@ -15,9 +15,9 @@ function PostInfo({ memberName, dueDate, type, number, categories }) {
           모집 인원: <span className="font-semibold">{number}명</span>
         </p>
       </div>
-      <div className="mt-4 md:mt-0">
-        {categories &&
-          categories.map((category, index) => (
+      {categories !== null ? (
+        <div className="mt-4 md:mt-0">
+          {categories.map((category, index) => (
             <span
               key={index}
               className="inline-block bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-sm font-medium mr-2"
@@ -25,7 +25,8 @@ function PostInfo({ memberName, dueDate, type, number, categories }) {
               {category}
             </span>
           ))}
-      </div>
+        </div>
+      ) : null}
     </div>
   );
 }

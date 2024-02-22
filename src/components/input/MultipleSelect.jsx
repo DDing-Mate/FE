@@ -1,11 +1,20 @@
 import { useRef, useState, useEffect, forwardRef } from "react";
 
 import Input from "./Input";
+const options = [
+  "언어",
+  "역사",
+  "철학",
+  "문화",
+  "법",
+  "교육",
+  "경제",
+  "프로그래밍",
+  "과학",
+  "기계",
+];
 
-function MultipleSelect(
-  { label, options, htmlFor, setValue, watch },
-  forwardRef
-) {
+function MultipleSelect({ label, htmlFor, setValue, watch }, forwardRef) {
   const [hidden, setHidden] = useState(true);
   const ref = useRef();
   const categoryValue = watch("categories");
@@ -38,7 +47,7 @@ function MultipleSelect(
         className="w-96  rounded-lg min-h-12 cursor-pointer flex flex-wrap  border-2 border-red-300  mb-3"
         onClick={() => setHidden(!hidden)}
       >
-        {categoryValue.map((v) => (
+        {categoryValue?.map((v) => (
           <div
             className="flex border-2 m-1 items-center box-border p-1"
             key={v}

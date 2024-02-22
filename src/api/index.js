@@ -32,7 +32,7 @@ export async function postMember(data) {
 }
 
 export async function patchMember({ data, token }) {
-  return await api.patch("api/account/register", data, {
+  return await api.patch("api/member", data, {
     headers: {
       Authorization: "Bearer " + token,
     },

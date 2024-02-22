@@ -27,7 +27,7 @@ function PostDetail() {
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 flex-1">
             {data.data.data.title}
           </h2>
-          <PostButtons id={postId} />
+          {data.data.data.mine && <PostButtons id={postId} />}
         </div>
         <PostInfo
           memberName={data.data.data.memberName}
