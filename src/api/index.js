@@ -81,7 +81,7 @@ export async function deletePost({ id, token }) {
 }
 
 export async function getTypePosts(type) {
-  return await api.get(`api/post/type=${type}`);
+  return await api.get(`api/post/type/${type}`);
 }
 
 export async function getCategoryPosts(category) {
