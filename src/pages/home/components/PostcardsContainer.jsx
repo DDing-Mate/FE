@@ -9,7 +9,6 @@ function PostcardsContainer() {
     queryFn: getPosts,
   });
 
-  console.log(data);
   return (
     <div className="flex flex-wrap -m-4">
       {data?.data.data.map((post) => (

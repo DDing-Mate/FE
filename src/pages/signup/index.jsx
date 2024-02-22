@@ -16,6 +16,7 @@ function SignUp() {
       passwordCheck: "",
       name: "",
       studentId: "",
+      univ: "",
       major: "",
       birth: "",
       introduction: "",
@@ -77,6 +78,7 @@ function SignUp() {
                 register={register}
                 watch={watch}
                 setValue={setValue}
+                getValues={getValues}
               />
               <button type="submit" className="btn w-48 bg-black text-white">
                 가입하기

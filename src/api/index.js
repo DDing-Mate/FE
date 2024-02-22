@@ -20,12 +20,19 @@ export async function confirmEmailCode({ email, code }) {
   return await api.post(`api/account/email/auth?email=${email}&code=${code}`);
 }
 
+export async function getMember(token) {
+  return await api.get("api/member", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
 export async function postMember(data) {
   return await api.post("api/account/register", data);
 }
 
 export async function patchMember({ data, token }) {
-  return await api.patch("api/account/register", data, {
+  return await api.patch("api/member", data, {
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -52,8 +59,25 @@ export async function getPosts() {
   return await api.get("api/post/all");
 }
 
-export async function getPost(id) {
-  return await api.get(`api/post/${id}`);
+export async function getPost({ id, token }) {
+  return await api.get(`api/post/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+export async function patchPost({ id, token }) {
+  return await api.patch(`api/post/${id}`, {
+    Authorization: "Bearer " + token,
+  });
+}
+
+export async function deletePost({ id, token }) {
+  return await api.delete(`api/post/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 }
 
 export async function getTypePosts(type) {
@@ -72,6 +96,10 @@ export async function getComment(id) {
   return await api.get(`api/comment/byPost${id}`);
 }
 
-export async function getMajor() {
-  return await api.get(`/api/account/major`);
+export async function getMajor({ major }) {
+  return await api.get(`/api/account/major?univ=${major}`);
+}
+
+export async function getUnviersity() {
+  return await api.get("api/account/univ");
 }

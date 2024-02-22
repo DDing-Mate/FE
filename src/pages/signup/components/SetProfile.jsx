@@ -1,18 +1,12 @@
+import { useQuery } from "@tanstack/react-query";
 import Input from "../../../components/input/Input";
 import MultipleSelect from "../../../components/input/MultipleSelect";
-const options = [
-  "언어",
-  "역사",
-  "철학",
-  "문화",
-  "법",
-  "교육",
-  "경제",
-  "프로그래밍",
-  "과학",
-  "기계",
-];
-function SetProfile({ register, watch, setValue }) {
+import { getMajor, getUnviersity } from "../../../api";
+import { useEffect, useState } from "react";
+import Select from "../../../components/input/Select";
+import MajorInput from "../../../components/input/MajorInput";
+
+function SetProfile({ register, watch, setValue, getValues }) {
   return (
     <>
       <Input
@@ -31,13 +25,7 @@ function SetProfile({ register, watch, setValue }) {
           valueAsNumber: true,
         })}
       />
-      <Input
-        className="input input-bordered w-96 mb-3"
-        type="text"
-        label={"전공"}
-        htmlFor={"major"}
-        {...register("major", { required: "전공을 입력해주세요" })}
-      />
+      <MajorInput watch={watch} register={register} />
       <Input
         className="input input-bordered w-96 mb-3"
         type="text"
@@ -46,6 +34,13 @@ function SetProfile({ register, watch, setValue }) {
         placeholder={"YYYYMMDD"}
         {...register("birth", { required: "생일을 입력해주세요" })}
       />
+      <MultipleSelect
+        label={"카테고리"}
+        htmlFor={"categories"}
+        setValue={setValue}
+        watch={watch}
+        {...register("categories")}
+      />
       <Input
         className="input input-bordered w-96 mb-3"
         label={"한줄 소개"}
@@ -53,14 +48,6 @@ function SetProfile({ register, watch, setValue }) {
         {...register("introduction", {
           required: "한줄 소개를 입력해주세요",
         })}
-      />
-      <MultipleSelect
-        options={options}
-        label={"카테고리"}
-        htmlFor={"categories"}
-        setValue={setValue}
-        watch={watch}
-        {...register("categories")}
       />
     </>
   );
