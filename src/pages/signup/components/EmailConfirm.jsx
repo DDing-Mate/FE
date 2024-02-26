@@ -21,6 +21,7 @@ function EamilConfirm({ register, getValues, setConfirmEmail }) {
     emailMutation.mutate(data + "@mju.ac.kr", {
       onSuccess: (data) => {
         setVisibile(true);
+        toast.info("인증번호가 전송되었습니다");
         console.log(data);
       },
 
@@ -28,8 +29,10 @@ function EamilConfirm({ register, getValues, setConfirmEmail }) {
         if (err.response.status === 403)
           toast.error("확인되지 않는 이메일입니다!");
         console.log(err.response.status);
+        setVisibile(false);
       },
     });
+    console.log(emailMutation.isLoading);
   };
 
   const handleEmailConfirmCode = (data) => {
@@ -46,6 +49,7 @@ function EamilConfirm({ register, getValues, setConfirmEmail }) {
           if (err.response.status === 403)
             toast.error("이메일 인증코드가 일치하지 않습니다!");
           console.log(err.response.status);
+          setSuccess(false);
         },
       }
     );
@@ -54,7 +58,7 @@ function EamilConfirm({ register, getValues, setConfirmEmail }) {
     <div className="w-full max-w-sm relative">
       <div className="flex items-center">
         <Input
-          className="input input-bordered w-48 mb-3"
+          className="input input-bordered w-48 mb-3 max-sm:w-36"
           type="email"
           label={"이메일"}
           htmlFor={"email"}
@@ -65,13 +69,13 @@ function EamilConfirm({ register, getValues, setConfirmEmail }) {
         />
         <div className="text-2xl mt-3 mx-1">@</div>
         <input
-          className="flex items-center input input-bordered w-40 mt-3"
+          className="flex items-center input input-bordered w-40 mt-3 max-sm:w-36"
           value={"mju.ac.kr"}
           disabled
         />
         <button
           type="button"
-          className="btn btn-sm ml-2 absolute top-9 right-[-60px]"
+          className="btn btn-sm  ml-2 absolute top-9 right-[-60px] max-sm:right-0"
           onClick={() => {
             handleEmailConfirm(getValues("email"));
           }}
@@ -82,7 +86,7 @@ function EamilConfirm({ register, getValues, setConfirmEmail }) {
       </div>
       <div className="relative">
         <Input
-          className="input input-bordered w-96 mb-3"
+          className="input input-bordered w-96 mb-3 max-sm:w-80"
           label={"확인번호"}
           htmlFor={"emailConfirm"}
           disabled={success ? true : false}
@@ -91,7 +95,7 @@ function EamilConfirm({ register, getValues, setConfirmEmail }) {
         />
         <button
           type="button"
-          className="btn btn-sm ml-2 absolute top-9 right-[-60px]"
+          className="btn btn-sm ml-2 absolute top-9 right-[-60px] max-sm:right-0"
           onClick={() => {
             handleEmailConfirmCode(getValues("emailConfirm"));
           }}
