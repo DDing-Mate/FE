@@ -130,7 +130,18 @@ export async function deleteComment({ id, token }) {
     },
   });
 }
-
+//
+export async function patchComment({ id, content, token }) {
+  return await api.patch(
+    `api/comment/${id}?content=${encodeURIComponent(content)}`,
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+}
 export async function getMajor({ major }) {
   return await api.get(`/api/account/major?univ=${major}`);
 }
