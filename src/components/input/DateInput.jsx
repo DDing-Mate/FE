@@ -27,7 +27,7 @@ function DateInput(
       <div className="relative" ref={ref}>
         <Input
           label={label}
-          className="input input-bordered w-96 mb-3"
+          className="input input-bordered w-96 mb-3 max-md:w-80"
           placeholder="yyyy-mm-dd"
           onClick={() => {
             setHidden(!hidden);

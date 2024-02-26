@@ -44,7 +44,7 @@ function MultipleSelect({ label, htmlFor, setValue, watch }, forwardRef) {
         hidden
       />
       <div
-        className="w-96  rounded-lg min-h-12 cursor-pointer flex flex-wrap  border-2 border-red-300  mb-3"
+        className="w-96 input input-bordered rounded-lg min-h-12 cursor-pointer flex flex-wrap mb-3 max-md:w-80"
         onClick={() => setHidden(!hidden)}
       >
         {categoryValue?.map((v) => (
@@ -67,7 +67,7 @@ function MultipleSelect({ label, htmlFor, setValue, watch }, forwardRef) {
         ))}
       </div>
       {!hidden && (
-        <div className="absolute z-30 bg-white border-2 w-96 rounded-lg bottom-[-275px]">
+        <div className="absolute z-30 bg-white border-2 w-96 rounded-lg bottom-[-275px] max-md:w-80">
           {options.map((cate) => (
             <div
               key={cate}
