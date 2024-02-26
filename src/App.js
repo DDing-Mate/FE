@@ -5,11 +5,12 @@ import PostDetail from "./pages/postdetail/index";
 import Post from "./pages/post";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import "./index.css";
-import MyPage from "./pages/myPage";
 import { CookiesProvider } from "react-cookie";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import ZZim from "./pages/zzim";
+import { Suspense, lazy } from "react";
+const MyPage = lazy(() => import("./pages/myPage"));
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -20,7 +21,7 @@ function App() {
     },
   });
   return (
-    <div className="App w-[1200px] m-auto relative">
+    <div className="App w-[1200px] m-auto relative max-lg:w-full">
       <ToastContainer />
       <CookiesProvider>
         <QueryClientProvider client={queryClient}>
@@ -29,7 +30,18 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/write" element={<Post />} />
-              <Route path="/myProfile" element={<MyPage />} />
+              <Route path="/edit/:postId" element={<Post />} />
+
+              <Route
+                path="/myProfile"
+                element={
+                  <Suspense fallback={<></>}>
+                    <MyPage />
+                  </Suspense>
+                }
+              />
+
+              <Route path="/zzim" element={<ZZim />} />
               <Route path="/post/:postId" element={<PostDetail />} />
             </Routes>
           </BrowserRouter>
