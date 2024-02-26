@@ -7,10 +7,6 @@ function PostButtons({ id }) {
   const [cookies] = useCookies();
   const navigate = useNavigate();
   console.log(cookies.token);
-  const editMutation = useMutation({
-    mutationFn: patchPost,
-    mutationKey: ["editPost"],
-  });
 
   const deleteMutation = useMutation({
     mutationFn: deletePost,
@@ -32,7 +28,8 @@ function PostButtons({ id }) {
     <div className="">
       <button
         type="button"
-        className="mx-2 text-blue-400 rounded-lg p-2 hover:underline"
+        className="mx-2 text-blue-400 rounded-lg p-2 hover:underline max-md:mx-0 max-md:p-0"
+        onClick={() => navigate(`/edit/${id}`)}
       >
         수정
       </button>

@@ -9,7 +9,14 @@ import { postMember } from "../../api";
 
 function SignUp() {
   const navigate = useNavigate();
-  const { register, handleSubmit, getValues, watch, setValue } = useForm({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       email: "",
       password: "",
@@ -33,10 +40,9 @@ function SignUp() {
 
   const submit = (data) => {
     console.log(data);
-    console.log(typeof data.studentId);
     mutation.mutate(data, {
       onSuccess: () => navigate("/"),
-      onError: (err) => console.log(err),
+      onError: (err) => toast.err(err),
     });
   };
 
@@ -51,7 +57,7 @@ function SignUp() {
   };
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-20">
         <h1 className="text-2xl font-bold">회원가입</h1>
         <form
           className="w-full flex flex-col items-center mt-5"
@@ -69,7 +75,7 @@ function SignUp() {
                 className="btn w-48 bg-black text-white"
                 onClick={handleNextButton}
               >
-                다음
+                계정 생성
               </button>
             </>
           ) : (
@@ -79,6 +85,7 @@ function SignUp() {
                 watch={watch}
                 setValue={setValue}
                 getValues={getValues}
+                errors={errors}
               />
               <button type="submit" className="btn w-48 bg-black text-white">
                 가입하기

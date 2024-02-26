@@ -35,7 +35,7 @@ function MajorInput({ watch, register, ...rest }) {
   return (
     <>
       <Select
-        className="select input-bordered w-96 mb-3"
+        className="select input-bordered w-96 mb-3 max-lg:w-80"
         options={unviersity}
         label={"대학"}
         htmlFor={"university"}
@@ -43,7 +43,7 @@ function MajorInput({ watch, register, ...rest }) {
         {...rest}
       />
       <Select
-        className="select input-bordered w-96 mb-3"
+        className="select input-bordered w-96 mb-3 max-lg:w-80"
         type="text"
         label={"전공"}
         htmlFor={"major"}

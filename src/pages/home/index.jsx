@@ -1,9 +1,8 @@
-import { Outlet } from "react-router-dom";
 import Header from "../../components/Header";
 import Banner from "./components/Banner";
 import PostcardsContainer from "./components/PostcardsContainer";
 import TypeSelector from "./components/TypeSelector";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 
 function Home() {
   const [selectedType, setSelectedType] = useState("all");
@@ -13,7 +12,9 @@ function Home() {
       <Header />
       <Banner />
       <TypeSelector setSelectedType={setSelectedType} />
-      <PostcardsContainer selectedType={selectedType} />
+      <Suspense fallback={<></>}>
+        <PostcardsContainer selectedType={selectedType} />
+      </Suspense>
     </div>
   );
 }
