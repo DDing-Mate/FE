@@ -3,7 +3,7 @@ function PasswordConfirm({ register }) {
   return (
     <>
       <Input
-        className="input input-bordered w-96 mb-3"
+        className="input input-bordered w-96 mb-3 max-sm:w-80"
         type="password"
         label={"패스워드"}
         htmlFor={"password"}
@@ -12,7 +12,7 @@ function PasswordConfirm({ register }) {
         })}
       />
       <Input
-        className="input input-bordered w-96 mb-3"
+        className="input input-bordered w-96 mb-3 max-sm:w-80"
         type="password"
         label={"패스워드 확인"}
         htmlFor={"passwordCheck"}

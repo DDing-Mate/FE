@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import truncate from "truncate";
-import contact from "../../../img/contact.png";
+import zzim from "../../../img/zzim.png";
+import { useMutation } from "@tanstack/react-query";
+import { zzimPost } from "../../../api";
+import { useCookies } from "react-cookie";
+import { toast } from "react-toastify";
 
 function Postcard({ data }) {
   const {
@@ -15,14 +19,28 @@ function Postcard({ data }) {
     number,
     link,
   } = data || {};
-  console.log(data);
 
-  const truncatedContent = truncate(content, 15);
+  const { mutate } = useMutation({
+    mutationFn: zzimPost,
+    mutationKey: ["zzim", postId],
+  });
+  const [cookies] = useCookies();
+  const truncatedTitle = truncate(title, 13);
 
   // 연락 링크 이벤트 핸들러
   const handleContactClick = (e) => {
     e.stopPropagation();
-    window.open(link, "_blank", "noopener,noreferrer");
+    mutate(
+      { id: postId, token: cookies.token },
+      {
+        onSuccess: () => {
+          toast.info("찜 목록에 추가되었습니다!");
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      }
+    );
   };
 
   return (
@@ -38,8 +56,10 @@ function Postcard({ data }) {
           </div>
         </div>
         <div className="px-5 pt-5">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
-          <p className="text-gray-600">{truncatedContent}</p>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            {truncatedTitle}
+          </h3>
+          {/* <div dangerouslySetInnerHTML={{ __html: truncatedContent }}></div> */}
           <div className="flex justify-between items-center text-gray-500 text-sm mt-3">
             <span>{memberName}</span>
             <div className="flex items-center space-x-2">
@@ -54,9 +74,9 @@ function Postcard({ data }) {
           {categories}
         </span>
         <img
-          src={contact}
+          src={zzim}
           alt="Contact"
-          className="w-5 h-5 cursor-pointer"
+          className="w-5 h-5 cursor-pointer hover:scale-150"
           onClick={handleContactClick}
         />
       </div>

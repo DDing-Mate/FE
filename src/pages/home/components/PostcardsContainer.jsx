@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Postcard from "./Postcard";
-import { getMajor, getPosts, getTypePosts } from "../../../api";
-import { useQuery } from "@tanstack/react-query";
+import { getPosts, getTypePosts } from "../../../api";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 function PostcardsContainer({ selectedType }) {
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading } = useSuspenseQuery({
     queryKey: ["posts", selectedType],
 
     queryFn:
@@ -19,7 +19,7 @@ function PostcardsContainer({ selectedType }) {
       {data?.data.data.map((post) => (
         <div
           key={post.postId}
-          className="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+          className="px-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
         >
           <Postcard data={post} />
         </div>

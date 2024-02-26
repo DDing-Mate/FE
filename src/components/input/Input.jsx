@@ -4,7 +4,7 @@ function Input({ label, type = "text", placeholder, htmlFor, ...rest }, ref) {
   return (
     <div className="flex flex-col">
       <label className={htmlFor} htmlFor={htmlFor}>
-        <span className="label-text-alt text-lg">{label}</span>
+        <span className="label-text-alt text-base">{label}</span>
       </label>
       <input
         ref={ref}

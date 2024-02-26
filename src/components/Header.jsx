@@ -7,18 +7,20 @@ function Header() {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
-
   return (
     <>
       <div className="navbar bg-base-100">
         <div className="flex-1">
-          <span className="btn btn-ghost text-xl" onClick={() => navigate("/")}>
+          <span
+            className="text-xl font-bold cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             띵메이트
           </span>
         </div>
         <div>
           <span
-            className="btn btn-ghost text-xl"
+            className="text-base font-extrabold mx-2 cursor-pointer hover:text-red-300"
             onClick={() => {
               if (!cookies.token) setVisible(true);
               else navigate("/write");
@@ -30,7 +32,7 @@ function Header() {
         <div>
           {!cookies.token ? (
             <span
-              className="btn btn-ghost text-xl"
+              className="text-base font-extrabold mx-2 cursor-pointer hover:text-red-300"
               onClick={() => {
                 setVisible(true);
               }}
@@ -38,8 +40,10 @@ function Header() {
               로그인
             </span>
           ) : (
-            <details className="dropdown">
-              <summary className="btn text-xl">내 정보</summary>
+            <details className="dropdown max-lg:dropdown-end">
+              <summary className="text-base font-semibold mx-2 cursor-pointer list-none hover:text-red-300">
+                내 정보
+              </summary>
               <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                 <li>
                   <Link to={"/zzim"}>찜한 글</Link>
@@ -48,7 +52,14 @@ function Header() {
                   <Link to={"/myProfile"}>내 정보</Link>
                 </li>
                 <li>
-                  <span onClick={() => removeCookie("token")}>로그아웃</span>
+                  <span
+                    onClick={() => {
+                      removeCookie("token");
+                      navigate("/");
+                    }}
+                  >
+                    로그아웃
+                  </span>
                 </li>
               </ul>
             </details>
