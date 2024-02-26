@@ -55,25 +55,49 @@ export async function postPost({ data, token }) {
   });
 }
 
-export async function getPosts() {
+export async function getPosts({ token }) {
   return await api.get("api/post/all");
 }
 
 export async function getPost({ id, token }) {
-  return await api.get(`api/post/${id}`, {
+  console.log(token);
+  if (token) {
+    return await api.get(`api/post/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+  } else {
+    return await api.get(`api/post/${id}`);
+  }
+}
+export async function patchPost({ id, data, token }) {
+  return await api.patch(`api/post/${id}`, data, {
     headers: {
       Authorization: "Bearer " + token,
     },
   });
 }
-export async function patchPost({ id, token }) {
-  return await api.patch(`api/post/${id}`, {
-    Authorization: "Bearer " + token,
-  });
-}
 
 export async function deletePost({ id, token }) {
   return await api.delete(`api/post/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+
+export async function zzimPost({ id, token }) {
+  console.log(id);
+  return await api.post(`api/mark/${id}`, id, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+
+export async function getZZim(token) {
+  return await api.get("api/post/mark", {
     headers: {
       Authorization: "Bearer " + token,
     },
