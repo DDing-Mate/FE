@@ -113,7 +113,7 @@ function Comments({ postId }) {
               </p>
             )}
             {comment.mine && !comment.deleted && (
-              <>
+              <div className="flex items-center space-x-2 mt-2">
                 {editingCommentId === comment.commentId ? (
                   <button
                     onClick={() =>
@@ -142,7 +142,7 @@ function Comments({ postId }) {
                 >
                   삭제
                 </button>
-              </>
+              </div>
             )}
           </div>
         ))}
