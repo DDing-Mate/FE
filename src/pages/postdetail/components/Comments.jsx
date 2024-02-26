@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { postComment, getComment } from "../../../api";
+import { postComment, getComment, deleteComment } from "../../../api";
 import { useForm } from "react-hook-form";
 import { useCookies } from "react-cookie";
 
@@ -18,36 +18,45 @@ function Comments({ postId }) {
     queryKey: ["comments", postId],
     queryFn: async () => {
       const response = await getComment({ id: postId, token: cookies.token });
-
       return response.data.data || [];
     },
   });
 
   const postCommentMutation = useMutation({
-    mutationKey: ["postComment"],
     mutationFn: (newComment) => postComment(newComment, cookies.token),
     onSuccess: () => {
       queryClient.invalidateQueries(["comments", postId]);
     },
-
     onError: (error) => {
       console.error("댓글 오류 발생:", error.response);
     },
   });
 
+  const deleteCommentMutation = useMutation({
+    mutationFn: ({ commentId, token }) =>
+      deleteComment({ id: commentId, token }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments", postId]);
+    },
+    onError: (error) => {
+      console.error("댓글 삭제 오류 발생:", error.response);
+    },
+  });
+
+  const handleDelete = (commentId) => {
+    deleteCommentMutation.mutate({ commentId, token: cookies.token });
+  };
+
   const onSubmit = (data) => {
     postCommentMutation.mutate({
-      data: {
-        postId: postId,
-        content: data.comment,
-      },
+      data: { postId, content: data.comment },
       token: cookies.token,
     });
-    reset({ comment: "" });
+    reset();
   };
 
   if (commentsQuery.isLoading) return <div>Loading...</div>;
-  if (commentsQuery.error)
+  if (commentsQuery.isError)
     return <div>Error: {commentsQuery.error.message}</div>;
 
   return (
@@ -57,7 +66,7 @@ function Comments({ postId }) {
           {...register("comment", { required: true })}
           className="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
           placeholder="댓글을 입력하세요."
-        ></textarea>
+        />
         {errors.comment && (
           <p className="text-red-500 text-sm mt-2">댓글을 입력해주세요.</p>
         )}
@@ -70,13 +79,23 @@ function Comments({ postId }) {
       </form>
 
       <div className="mt-6 space-y-4">
-        {commentsQuery.data.length > 0 ? (
+        {commentsQuery.data?.length > 0 ? (
           commentsQuery.data.map((comment) => (
             <div key={comment.commentId} className="bg-gray-100 p-4 rounded-lg">
               <p className="text-gray-800">{comment.content}</p>
-              <p className="text-sm text-gray-600 mt-2">
-                작성자: {comment.writer}
-              </p>
+              {!comment.deleted && (
+                <p className="text-sm text-gray-600 mt-2">
+                  작성자: {comment.writer}
+                </p>
+              )}
+              {comment.mine && !comment.deleted && (
+                <button
+                  onClick={() => handleDelete(comment.commentId)}
+                  className="text-red-600 hover:text-red-800 text-sm"
+                >
+                  삭제
+                </button>
+              )}
             </div>
           ))
         ) : (
@@ -86,4 +105,5 @@ function Comments({ postId }) {
     </div>
   );
 }
+
 export default Comments;

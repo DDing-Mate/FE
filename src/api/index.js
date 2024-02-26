@@ -123,6 +123,14 @@ export async function getComment({ id, token }) {
   });
 }
 
+export async function deleteComment({ id, token }) {
+  return await api.delete(`api/comment/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+}
+
 export async function getMajor({ major }) {
   return await api.get(`/api/account/major?univ=${major}`);
 }
