@@ -6,7 +6,6 @@ const api = axios.create({
 });
 
 export async function login(data) {
-  console.log(data);
   return await api.post("api/account/login", data);
 }
 
@@ -15,8 +14,6 @@ export async function confirmEmail(data) {
 }
 
 export async function confirmEmailCode({ email, code }) {
-  console.log(email);
-  console.log(code);
   return await api.post(`api/account/email/auth?email=${email}&code=${code}`);
 }
 
@@ -60,7 +57,6 @@ export async function getPosts({ token }) {
 }
 
 export async function getPost({ id, token }) {
-  console.log(token);
   if (token) {
     return await api.get(`api/post/${id}`, {
       headers: {
@@ -88,7 +84,6 @@ export async function deletePost({ id, token }) {
 }
 
 export async function zzimPost({ id, token }) {
-  console.log(id);
   return await api.post(`api/mark/${id}`, id, {
     headers: {
       Authorization: "Bearer " + token,
