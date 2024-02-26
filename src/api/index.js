@@ -88,12 +88,20 @@ export async function getCategoryPosts(category) {
   return await api.get(`api/post/category=${category}`);
 }
 
-export async function postComment(data) {
-  return await api.post("api/comment", data);
+export async function postComment({ data, token }) {
+  return await api.post("api/comment", data, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 }
 
-export async function getComment(id) {
-  return await api.get(`api/comment/byPost${id}`);
+export async function getComment({ id, token }) {
+  return await api.get(`api/comment/byPost/${id}`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
 }
 
 export async function getMajor({ major }) {
