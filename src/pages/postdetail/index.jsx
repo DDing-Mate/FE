@@ -53,7 +53,7 @@ function PostDetail() {
             연락하기
           </a>
         </div>
-        <Comments />
+        <Comments postId={postId} />
       </div>
     </div>
   );
