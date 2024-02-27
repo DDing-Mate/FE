@@ -11,7 +11,9 @@ function PostBody({ cookies, postId }) {
     queryFn: () => getPost({ id: postId, token: cookies.token }),
     queryKey: ["postDetail", postId],
   });
-
+  const emailRgx = new RegExp(
+    "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+  );
   return (
     <div className="container mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg ">
       <div className="flex max-md:flex-col">
@@ -31,7 +33,11 @@ function PostBody({ cookies, postId }) {
       <div dangerouslySetInnerHTML={{ __html: data.data.data.content }}></div>
       <div className="flex justify-end mb-10">
         <a
-          href={data.data.data.link}
+          href={
+            emailRgx.test(data.data.data.link)
+              ? `mailto:${data.data.data.link}`
+              : data.data.data.link
+          }
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-300"

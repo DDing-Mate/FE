@@ -32,10 +32,7 @@ function SetProfile({ register, watch, setValue, errors }) {
         label={"생년월일"}
         htmlFor={"birth"}
         placeholder={"YYYY-MM-DD"}
-        {...register("birth", {
-          required: "true",
-          pattern: dateRegex,
-        })}
+        {...register("birth", { required: "true" })}
       />
       <ErrorMessage errors={errors?.birth} />
       <MultipleSelect
