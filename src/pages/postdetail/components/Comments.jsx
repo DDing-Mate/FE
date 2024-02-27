@@ -8,6 +8,7 @@ import {
 } from "../../../api";
 import { useForm } from "react-hook-form";
 import { useCookies } from "react-cookie";
+import { toast } from "react-toastify";
 
 function Comments({ postId }) {
   const queryClient = useQueryClient();
@@ -28,6 +29,9 @@ function Comments({ postId }) {
     mutationFn: (newComment) => postComment(newComment, cookies.token),
     onSuccess: () => {
       queryClient.invalidateQueries(["comments", postId]);
+    },
+    onError: (err) => {
+      if (err.response.status === 403) toast.info("로그인 후 사용가능합니다!");
     },
   });
 
