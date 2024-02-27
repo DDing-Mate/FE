@@ -64,7 +64,11 @@ export async function getPost({ id, token }) {
       },
     });
   } else {
-    return await api.get(`api/post/${id}`);
+    return await api.get(`api/post/${id}`, {
+      headers: {
+        Authorization: "Bearer " + "sdfsfsdsdgsdgsdgsdgsdgsdgsdgsdf",
+      },
+    });
   }
 }
 export async function patchPost({ id, data, token }) {
