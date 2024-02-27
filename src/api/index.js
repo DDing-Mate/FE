@@ -66,7 +66,7 @@ export async function getPost({ id, token }) {
   } else {
     return await api.get(`api/post/${id}`, {
       headers: {
-        Authorization: "Bearer " + "sdfsfsdsdgsdgsdgsdgsdgsdgsdgsdf",
+        Authorization: "Bearer " + "notLogIn",
       },
     });
   }
