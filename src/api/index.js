@@ -3,7 +3,7 @@ import axios from "axios";
 const host =
   window.location.hostname === "localhost"
     ? "http://ec2-52-78-106-209.ap-northeast-2.compute.amazonaws.com:8080"
-    : "api";
+    : "";
 
 const api = axios.create({
   baseURL: host,
