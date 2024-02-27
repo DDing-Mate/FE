@@ -46,9 +46,12 @@ function MyPage() {
     );
   };
 
+  const [userName, setUserName] = useState("");
+
   useEffect(() => {
     if (isSuccess) {
       console.log(data.data.data);
+      setUserName(data.data.data.name);
       reset(data.data.data);
       setIsReset(true);
     }
@@ -63,7 +66,7 @@ function MyPage() {
           onSubmit={handleSubmit(editMember)}
         >
           <h1 className="text-2xl font-bold mb-5 w-72 text-center">
-            정승연님 안녕하세요!
+            {userName}님 안녕하세요!
           </h1>
           <Input
             className="input input-bordered w-96 mb-3 max-lg:w-80"
