@@ -13,6 +13,7 @@ function PostcardsContainer({ selectedType }) {
         ? getPosts
         : () => getTypePosts(encodeURIComponent(selectedType)),
   });
+  console.log(error);
 
   return (
     <div className="flex flex-wrap -m-4">

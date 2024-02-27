@@ -12,6 +12,7 @@ function TypeSelector({ setSelectedType }) {
               if (type === "전체") setSelectedType("all");
               else setSelectedType(type);
             }}
+            key={type}
           >
             {type}
           </button>
@@ -25,6 +26,7 @@ function TypeSelector({ setSelectedType }) {
           <option
             className="px-6 py-2 hover:text-blue-600 transition duration-300"
             value={type === "전체" ? "all" : type}
+            key={type}
           >
             {type}
           </option>
